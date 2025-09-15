@@ -1,0 +1,162 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --font-family: 'Roboto', sans-serif;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: #f4f7f6;
+    color: var(--dark-color);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.navbar {
+    background-color: white;
+    padding: 1rem 2rem;
+    box-shadow: var(--box-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.nav-brand {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-primary { background-color: var(--primary-color); }
+.btn-primary:hover { background-color: #0056b3; }
+.btn-secondary { background-color: var(--secondary-color); color: white; }
+.btn-secondary:hover { background-color: #545b62; }
+.btn-success { background-color: var(--success-color); }
+.btn-success:hover { background-color: #1e7e34; }
+.btn-danger { background-color: var(--danger-color); }
+.btn-danger:hover { background-color: #b21f2d; }
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.account-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+.card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.card-header, .card-body, .card-footer { padding: 1.25rem; }
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--light-color);
+    border-bottom: 1px solid #dee2e6;
+}
+.account-type { font-weight: 500; color: var(--primary-color); }
+.account-number { color: var(--secondary-color); font-size: 0.9rem; }
+.card-body { flex-grow: 1; }
+.balance-label { margin: 0; color: var(--secondary-color); }
+.balance {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0.5rem 0 0 0;
+    color: var(--dark-color);
+}
+
+.form-container, .actions-container, .history-container, .account-details {
+    background-color: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+}
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+}
+.transaction-form {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.transaction-form input { flex-grow: 1; }
+.button-group { display: flex; gap: 0.5rem; }
+.back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.transaction-table th, .transaction-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+.transaction-table th { background-color: var(--light-color); }
+.tx-deposit { color: var(--success-color); font-weight: 500; text-transform: capitalize; }
+.tx-withdraw { color: var(--danger-color); font-weight: 500; text-transform: capitalize; }
+
+.footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+    color: var(--secondary-color);
+    background-color: var(--light-color);
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #f5c6cb;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}

@@ -1,0 +1,52 @@
+<%- include('partials/header.ejs') %>
+
+<div class="account-details">
+    <h2><%= account.accountHolderName %> - <span class="account-type"><%= account.accountType %></span></h2>
+    <p class="account-number">Account Number: #<%= account.accountNumber %></p>
+    <div class="balance-prominent">
+        <p>Available Balance:</p>
+        <span>$<%= account.balance.toFixed(2) %></span>
+    </div>
+</div>
+
+<div class="actions-container">
+    <h3>Make a Transaction</h3>
+    <form class="transaction-form" action="/transaction/<%= account.accountNumber %>" method="POST">
+        <input type="number" name="amount" placeholder="Amount" step="1" required>
+        <div class="button-group">
+            <button type="submit" name="type" value="deposit" class="btn btn-success">Deposit</button>
+            <button type="submit" name="type" value="withdraw" class="btn btn-danger">Withdraw</button>
+        </div>
+    </form>
+</div>
+
+<div class="history-container">
+    <h3>Transaction History</h3>
+    <table class="transaction-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (account.transactions.length > 0) { %>
+                <% account.transactions.slice().reverse().forEach(tx => { %>
+                    <tr>
+                        <td><%= new Date(tx.timestamp).toLocaleString() %></td>
+                        <td class="tx-<%= tx.type %>"><%= tx.type %></td>
+                        <td>$<%= tx.amount.toFixed(2) %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="3">No transactions yet.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<a href="/" class="back-link">← Back to Dashboard</a>
+
+<%- include('partials/footer.ejs') %>

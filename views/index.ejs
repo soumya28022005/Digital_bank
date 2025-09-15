@@ -1,0 +1,31 @@
+<%- include('partials/header.ejs') %>
+
+<div class="page-header">
+    <h1>Account Dashboard</h1>
+    <a href="/new-account" class="btn btn-primary">Create New Account</a>
+</div>
+
+<div class="account-grid">
+    <% if(accounts.length > 0) { %>
+        <% accounts.forEach(account => { %>
+            <div class="card">
+                <div class="card-header">
+                    <span class="account-type"><%= account.accountType %></span>
+                    <span class="account-number">#<%= account.accountNumber %></span>
+                </div>
+                <div class="card-body">
+                    <h3 class="account-holder"><%= account.accountHolderName %></h3>
+                    <p class="balance-label">Current Balance</p>
+                    <p class="balance">$<%= account.balance.toFixed(2) %></p>
+                </div>
+                <div class="card-footer">
+                    <a href="/enter-password/<%= account.accountNumber %>" class="btn btn-secondary">View Details</a>
+                </div>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p>No accounts found. Create one to get started!</p>
+    <% } %>
+</div>
+
+<%- include('partials/footer.ejs') %>
