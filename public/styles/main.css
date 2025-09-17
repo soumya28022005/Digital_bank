@@ -203,14 +203,26 @@ body {
 }
 /* --- Responsive Styles for Mobile (Combined and Final) --- */
 
+/* --- Responsive Styles for Mobile (Completed) --- */
+
 @media (max-width: 768px) {
 
     /* --- General Page Layout Fixes --- */
 
+    /* NEW - Reduce container side padding for more content space */
+    .container {
+        padding: 0 1rem;
+    }
+
     .page-header {
         flex-direction: column; /* Stack the title and button */
-        align-items: stretch;   /* MAKE THE BUTTON FULL-WIDTH */
+        align-items: stretch;   /* Make the button full-width */
         gap: 1rem;
+    }
+
+    /* NEW - Center the page title */
+    .page-header h1 {
+        text-align: center;
     }
 
     .page-header .btn {
