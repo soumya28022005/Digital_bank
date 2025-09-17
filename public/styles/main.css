@@ -201,26 +201,65 @@ body {
         gap: 0.75rem;           /* Add a small space between the buttons */
     }
 }
-/* --- Responsive Styles for Mobile --- */
+/* --- Responsive Styles for Mobile (Combined and Final) --- */
+
 @media (max-width: 768px) {
 
-    /* ... (your existing mobile styles for the header and transaction form) ... */
+    /* --- General Page Layout Fixes --- */
+
+    .page-header {
+        flex-direction: column; /* Stack the title and button */
+        align-items: stretch;   /* MAKE THE BUTTON FULL-WIDTH */
+        gap: 1rem;
+    }
+
+    .page-header .btn {
+        text-align: center; /* Center the text in the new full-width button */
+    }
 
 
-    /* --- Styles for the Account Cards on Mobile --- */
-    /* PASTE THE NEW CODE HERE */
+    /* --- Account Cards Page Fixes --- */
 
     .account-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Force a single column */
     }
+
     .card .button-group {
         display: flex;
         flex-direction: column;
-        align-items: stretch;
+        align-items: stretch; /* Make buttons full-width */
         gap: 0.5rem;
     }
+
     .card .button-group .btn {
         text-align: center;
     }
 
+
+    /* --- Transaction Form Fixes (Details Page) --- */
+
+    .transaction-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+    }
+
+    .transaction-form input[type="number"] {
+        font-size: 1.5rem;
+        font-weight: 700;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .transaction-form .btn {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .transaction-form .button-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 0.75rem;
+    }
 }
