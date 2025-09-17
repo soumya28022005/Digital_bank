@@ -160,3 +160,44 @@ body {
     margin-bottom: 1.5rem;
     text-align: center;
 }
+/* --- Responsive Styles for Mobile --- */
+
+/* This rule applies only to screens 768px wide or smaller */
+@media (max-width: 768px) {
+
+    /* Make the page header stack vertically */
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    /* --- IMPROVED TRANSACTION FORM STYLES --- */
+
+    .transaction-form {
+        flex-direction: column; /* Stack input and buttons */
+        align-items: stretch;   /* Make items fill the width */
+        gap: 1.5rem;            /* Add more space between input and buttons */
+    }
+
+    /* Make the amount input field much bigger and easier to use */
+    .transaction-form input[type="number"] {
+        font-size: 1.5rem;      /* Make the text you type much larger */
+        font-weight: 700;       /* Make the number bold */
+        padding: 1rem;          /* Make the input box taller */
+        text-align: center;     /* Center the amount for a cleaner look */
+    }
+
+    /* Make the Deposit/Withdraw buttons taller and the text bigger */
+    .transaction-form .btn {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .transaction-form .button-group {
+        display: flex;
+        flex-direction: column; /* Stack the buttons */
+        width: 100%;
+        gap: 0.75rem;           /* Add a small space between the buttons */
+    }
+}
