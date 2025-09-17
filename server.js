@@ -4,7 +4,7 @@ import axios from "axios";
 
 const app = express();
 const port = 3000; 
-const API_URL = "http://localhost:4000";
+const API_URL = "https://digital-bank-1-d91i.onrender.com";
 const FIXED_PASSWORD = "Soumya2802@";
 
 
