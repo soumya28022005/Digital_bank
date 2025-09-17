@@ -1,52 +1,93 @@
-<%- include('partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details - Digital Bank</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="nav-brand">Digital Bank</a>
+    </nav>
 
-<div class="account-details">
-    <h2><%= account.accountHolderName %> - <span class="account-type"><%= account.accountType %></span></h2>
-    <p class="account-number">Account Number: #<%= account.accountNumber %></p>
-    <div class="balance-prominent">
-        <p>Available Balance:</p>
-        <span>$<%= account.balance.toFixed(2) %></span>
-    </div>
-</div>
-
-<div class="actions-container">
-    <h3>Make a Transaction</h3>
-    <form class="transaction-form" action="/transaction/<%= account.accountNumber %>" method="POST">
-        <input type="number" name="amount" placeholder="Amount" step="1" required>
-        <div class="button-group">
-            <button type="submit" name="type" value="deposit" class="btn btn-success">Deposit</button>
-            <button type="submit" name="type" value="withdraw" class="btn btn-danger">Withdraw</button>
+    <div class="container">
+        <div class="page-header">
+            <h1>Account Details</h1>
+            <div class="button-group">
+                <a href="/" class="btn btn-secondary">Back to All Accounts</a>
+                <a href="/delete-account/<%= account.accountNumber %>" 
+                   class="btn btn-danger"
+                   onclick="return confirm('Are you sure you want to delete this account? This action cannot be undone.')">
+                    Delete Account
+                </a>
+            </div>
         </div>
-    </form>
-</div>
 
-<div class="history-container">
-    <h3>Transaction History</h3>
-    <table class="transaction-table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% if (account.transactions.length > 0) { %>
-                <% account.transactions.slice().reverse().forEach(tx => { %>
-                    <tr>
-                        <td><%= new Date(tx.timestamp).toLocaleString() %></td>
-                        <td class="tx-<%= tx.type %>"><%= tx.type %></td>
-                        <td>$<%= tx.amount.toFixed(2) %></td>
-                    </tr>
-                <% }); %>
+        <div class="account-details">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div>
+                    <h3>Account Information</h3>
+                    <p><strong>Account Holder:</strong> <%= account.accountHolderName %></p>
+                    <p><strong>Account Number:</strong> <%= account.accountNumber %></p>
+                    <p><strong>Account Type:</strong> <%= account.accountType %></p>
+                    <p><strong>Created:</strong> <%= new Date(account.createdAt).toLocaleDateString() %></p>
+                </div>
+                <div>
+                    <h3>Balance</h3>
+                    <p class="balance" style="font-size: 3rem; margin: 1rem 0; color: #28a745;">₹<%= account.balance.toFixed(2) %></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions-container">
+            <h3>Quick Transaction</h3>
+            <form method="POST" action="/transaction/<%= account.accountNumber %>" class="transaction-form">
+                <input type="number" name="amount" placeholder="Enter amount" step="0.01" min="0.01" required>
+                <div class="button-group">
+                    <button type="submit" name="type" value="deposit" class="btn btn-success">Deposit</button>
+                    <button type="submit" name="type" value="withdraw" class="btn btn-danger">Withdraw</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="history-container">
+            <h3>Transaction History</h3>
+            <% if (account.transactions && account.transactions.length > 0) { %>
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% account.transactions.slice().reverse().forEach(transaction => { %>
+                            <tr>
+                                <td><%= new Date(transaction.timestamp).toLocaleString() %></td>
+                                <td class="<%= transaction.type === 'deposit' ? 'tx-deposit' : 'tx-withdraw' %>">
+                                    <%= transaction.type === 'deposit' ? '+ Deposit' : '- Withdraw' %>
+                                </td>
+                                <td class="<%= transaction.type === 'deposit' ? 'tx-deposit' : 'tx-withdraw' %>">
+                                    ₹<%= transaction.amount.toFixed(2) %>
+                                </td>
+                                <td>#<%= transaction.id %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
             <% } else { %>
-                <tr>
-                    <td colspan="3">No transactions yet.</td>
-                </tr>
+                <p style="text-align: center; color: #6c757d; padding: 2rem;">
+                    No transactions found for this account.
+                </p>
             <% } %>
-        </tbody>
-    </table>
-</div>
-<a href="/" class="back-link">← Back to Dashboard</a>
+        </div>
+    </div>
 
-<%- include('partials/footer.ejs') %>
+    <footer class="footer">
+        <p>&copy; 2024 Digital Bank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

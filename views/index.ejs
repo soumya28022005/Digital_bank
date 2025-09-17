@@ -1,31 +1,75 @@
-<%- include('partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Bank - All Accounts</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="nav-brand">Digital Bank</a>
+    </nav>
 
-<div class="page-header">
-    <h1>Account Dashboard</h1>
-    <a href="/new-account" class="btn btn-primary">Create New Account</a>
-</div>
+    <div class="container">
+        <div class="page-header">
+            <h1>All Bank Accounts</h1>
+            <a href="/new-account" class="btn btn-primary">Create New Account</a>
+        </div>
 
-<div class="account-grid">
-    <% if(accounts.length > 0) { %>
-        <% accounts.forEach(account => { %>
-            <div class="card">
-                <div class="card-header">
-                    <span class="account-type"><%= account.accountType %></span>
-                    <span class="account-number">#<%= account.accountNumber %></span>
-                </div>
-                <div class="card-body">
-                    <h3 class="account-holder"><%= account.accountHolderName %></h3>
-                    <p class="balance-label">Current Balance</p>
-                    <p class="balance">$<%= account.balance.toFixed(2) %></p>
-                </div>
-                <div class="card-footer">
-                    <a href="/enter-password/<%= account.accountNumber %>" class="btn btn-secondary">View Details</a>
-                </div>
+        <% if (typeof query !== 'undefined' && query.deleted === 'true') { %>
+            <div style="background-color: #d4edda; color: #155724; padding: 1rem; border-radius: 8px; border: 1px solid #c3e6cb; margin-bottom: 2rem; text-align: center;">
+                Account deleted successfully!
             </div>
-        <% }) %>
-    <% } else { %>
-        <p>No accounts found. Create one to get started!</p>
-    <% } %>
-</div>
+        <% } %>
 
-<%- include('partials/footer.ejs') %>
+        <div class="account-grid">
+            <% accounts.forEach(account => { %>
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="account-type"><%= account.accountType %></div>
+                            <div class="account-number">Account #<%= account.accountNumber %></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3><%= account.accountHolderName %></h3>
+                        <p class="balance-label">Current Balance</p>
+                        <p class="balance">₹<%= account.balance.toFixed(2) %></p>
+                        <p style="color: #6c757d; font-size: 0.9rem; margin-top: 1rem;">
+                            Created: <%= new Date(account.createdAt).toLocaleDateString() %>
+                        </p>
+                        <p style="color: #6c757d; font-size: 0.9rem;">
+                            Transactions: <%= account.transactions.length %>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="button-group">
+                            <a href="/enter-password/<%= account.accountNumber %>" class="btn btn-primary">
+                                View Details
+                            </a>
+                            <a href="/delete-account/<%= account.accountNumber %>" 
+                               class="btn btn-danger"
+                               onclick="return confirm('Are you sure you want to delete this account? This action cannot be undone.')">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+
+        <% if (accounts.length === 0) { %>
+            <div style="text-align: center; padding: 3rem; color: #6c757d;">
+                <h2>No accounts found</h2>
+                <p>Create your first bank account to get started.</p>
+                <a href="/new-account" class="btn btn-primary">Create Account</a>
+            </div>
+        <% } %>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Digital Bank. All rights reserved.</p>
+    </footer>
+</body>
+</html>

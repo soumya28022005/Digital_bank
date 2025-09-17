@@ -71,6 +71,22 @@ app.post("/accounts", (req, res) => {
     res.status(201).json(newAccount);
 });
 
+// delete account
+app.delete("/accounts/:accountNumber", (req, res) => {
+    const accountNumber = parseInt(req.params.accountNumber);
+    const accountIndex = accounts.findIndex((acc) => acc.accountNumber === accountNumber);
+    
+    if (accountIndex === -1) {
+        return res.status(404).json({ message: "Account not found" });
+    }
+    
+    const deletedAccount = accounts.splice(accountIndex, 1)[0];
+    res.json({ 
+        message: "Account deleted successfully", 
+        deletedAccount: deletedAccount 
+    });
+});
+
 //deposite or credit
 
 app.post("/accounts/:accountNumber/transactions", (req, res) => {
